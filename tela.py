@@ -1,6 +1,17 @@
 from tkinter import *
 from tkinter import Tk, ttk
 from PIL import Image, ImageTk
+import random
+
+def calculo():
+    global calcularBotao, selecionado1, selecionado2, resultado
+
+    if selecionado1.get() != '' and selecionado2.get() != '':
+        porc = '0123456789'
+        dig = 2
+        resultado2_gerado = ''.join(random.sample(porc, dig))
+        print(resultado2_gerado)
+        resultado.config(text=resultado2_gerado + '%')
 
 def escolher():
     global telaImg, botaoImage
@@ -9,6 +20,7 @@ def escolher():
     escolha2 = selecionado2.get()
 
     imagem = None 
+    lgbtimagem = None
 
     if escolha1 == 'Homem' and escolha2 == 'Homem':
         imagem = 'casal2.png'
@@ -37,6 +49,7 @@ def escolher():
             botaoImage = Image.open(lgbtimagem)
             botaoImage = botaoImage.resize((30, 30))
             botaoImage = ImageTk.PhotoImage(botaoImage)
+
             calcularBotao.config(image=botaoImage)
             calcularBotao.image = botaoImage
 
@@ -44,6 +57,7 @@ def escolher():
             botaoImage = Image.open('coracao2.png')
             botaoImage = botaoImage.resize((30, 30))
             botaoImage = ImageTk.PhotoImage(botaoImage)
+
             calcularBotao.config(image=botaoImage) 
             calcularBotao.image = botaoImage
     else:
@@ -87,8 +101,8 @@ telaImg = ImageTk.PhotoImage(telaImg)
 telaLogo = Label(frameCima, image=telaImg, width=150, height=140, bg=cor2)
 telaLogo.place(x=10, y=50)
 
-resultado2 = Label(frameCima, text="50%", width=3, padx=10, anchor=CENTER, font=('Arial 25 bold'), bg=cor2, fg=cor6)
-resultado2.place(x=250, y=100)
+resultado = Label(frameCima, text="50%", width=3, padx=10, anchor=CENTER, font=('Arial 25 bold'), bg=cor2, fg=cor6)
+resultado.place(x=250, y=100)
 
 nome1 = Label(frameMeio, text="Seu nome", anchor=NW, font=('Arial 10 bold'), bg=cor2, fg=cor6)
 nome1.place(x=75, y=10)
@@ -124,7 +138,7 @@ botaoImage = Image.open('coracao2.png')
 botaoImage = botaoImage.resize((30, 30))
 botaoImage = ImageTk.PhotoImage(botaoImage)
 
-calcularBotao = Button(frameMeio, command=escolher, image=botaoImage, width=150, text='Calcular \n Porcentagem'.upper(), height=24, compound=RIGHT, anchor=CENTER, font=('Arial 10 bold'), bg=cor4)
+calcularBotao = Button(frameMeio, command=calculo, image=botaoImage, width=150, text='Calcular \n Porcentagem'.upper(), height=24, compound=RIGHT, anchor=CENTER, font=('Arial 10 bold'), bg=cor4)
 calcularBotao.place(x=120, y=145)
 
 janela.mainloop()
