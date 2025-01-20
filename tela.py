@@ -47,6 +47,9 @@ def tela1():
     enterNome2 = Entry(frameMeio, width=15, font=('Arial 14'), justify='center', relief='solid')
     enterNome2.place(x=250, y=80)
 
+    if enterNome1 == None and enterNome2 == None:
+        return tela1()
+
     selecionado1 = StringVar()
 
     rad1 = Radiobutton(frameMeio, text='Homem', bg=cor1, font=('Arial 12 bold'), value='Homem', variable=selecionado1).place(x=65, y=120)
@@ -59,12 +62,51 @@ def tela1():
 
     rad4 = Radiobutton(frameMeio, text='Mulher', bg=cor1, font=('Arial 12 bold'), value='Mulher', variable=selecionado2).place(x=245, y=150)
 
+    def atualizarImagem():
+
+        escolha1 = selecionado1.get()
+        escolha2 = selecionado2.get()
+
+        if escolha1 == 'Homem' and escolha2 == 'Mulher':
+            telaImg = Image.open('casal1.png')
+
+        elif escolha1 == 'Mulher' and escolha2 == 'Homem':
+            telaImg = Image.open('casal1.png')
+
+        elif escolha1 == 'Homem' and escolha2 == 'Homem':
+            telaImg = Image.open('casal2.png')
+
+        elif escolha1 == 'Mulher' and escolha2 == 'Mulher':
+            telaImg = Image.open('casal3.png')
+
+        else:
+            telaImg = Image.open('coracao1.png')
+        
+        telaImg = telaImg.resize((140, 140))
+        telaImg = ImageTk.PhotoImage(telaImg)
+        telaLogo.config(image=telaImg)
+        telaLogo.image = telaImg
+
+    selecionado1.trace("w", lambda *args: atualizarImagem())
+    selecionado2.trace("w", lambda *args: atualizarImagem())
+
     def irParaPerguntas():
+
+        nome1Valor = enterNome1.get().strip()
+        nome2Valor = enterNome2.get().strip()
+
+        if not nome1Valor or not nome2Valor:
+
+            msg = Label(janela, text="Por favor, preencha os campos!", font=('Arial 12 bold'), bg=cor1, fg=cor4)
+            msg.place(x=105, y= 460)
+
+            return
+
         janela.destroy()
         tela2(selecionado1.get(), selecionado2.get())
 
     botaoPerguntas = Button(janela, text="Ir para perguntas", command=irParaPerguntas, font=('Arial 12 bold'), bg=cor3, fg=cor4)
-    botaoPerguntas.place(x=182, y=415)
+    botaoPerguntas.place(x=182, y=410)
 
     janela.mainloop()
 
@@ -85,51 +127,51 @@ def tela2(escolha1, escolha2):
     global pergunta1_var, pergunta2_var, pergunta3_var, pergunta4_var
 
     pergunta1 = Label(janela2, text='Vocês acreditam em amor à primeira vista?', bg=cor1, fg=cor4, font=('Arial 12'))
-    pergunta1.place(x=70, y=40)
+    pergunta1.place(x=70, y=60)
 
     pergunta1_var = StringVar()
     pergunta1sim = Radiobutton(janela2, text="Sim", bg=cor1, font=('Arial 12 bold'), value="Sim", variable=pergunta1_var)
-    pergunta1sim.place(x=70, y=80)
+    pergunta1sim.place(x=70, y=95)
 
     pergunta1nao = Radiobutton(janela2, text="Não", bg=cor1, font=('Arial 12 bold'), value="Não", variable=pergunta1_var)
-    pergunta1nao.place(x=150, y=80)
+    pergunta1nao.place(x=150, y=95)
 
     pergunta2 = Label(janela2, text='Vocês gostam de sair para festas e baladas?', bg=cor1, fg=cor4, font=('Arial 12'))
-    pergunta2.place(x=70, y=120)
+    pergunta2.place(x=70, y=140)
 
     pergunta2_var = StringVar()
     pergunta2sim = Radiobutton(janela2, text="Sim", bg=cor1, font=('Arial 12 bold'), value="Sim", variable=pergunta2_var)
-    pergunta2sim.place(x=70, y=160)
+    pergunta2sim.place(x=70, y=175)
 
     pergunta2nao = Radiobutton(janela2, text="Não", bg=cor1, font=('Arial 12 bold'), value="Não", variable=pergunta2_var)
-    pergunta2nao.place(x=150, y=160)
+    pergunta2nao.place(x=150, y=175)
 
     pergunta3 = Label(janela2, text='Vocês têm hobbies ou interesses em comum?', bg=cor1, fg=cor4, font=('Arial 12'))
-    pergunta3.place(x=70, y=200)
+    pergunta3.place(x=70, y=220)
 
     pergunta3_var = StringVar()
     pergunta3sim = Radiobutton(janela2, text="Sim", bg=cor1, font=('Arial 12 bold'), value="Sim", variable=pergunta3_var)
-    pergunta3sim.place(x=70, y=240)
+    pergunta3sim.place(x=70, y=255)
 
     pergunta3nao = Radiobutton(janela2, text="Não", bg=cor1, font=('Arial 12 bold'), value="Não", variable=pergunta3_var)
-    pergunta3nao.place(x=150, y=240)
+    pergunta3nao.place(x=150, y=255)
 
     pergunta4 = Label(janela2, text='Vocês concordam em muitas decisões importantes?', bg=cor1, fg=cor4, font=('Arial 12'))
-    pergunta4.place(x=70, y=280)
+    pergunta4.place(x=70, y=300)
 
     pergunta4_var = StringVar()
     pergunta4sim = Radiobutton(janela2, text="Sim", bg=cor1, font=('Arial 12 bold'), value="Sim", variable=pergunta4_var)
-    pergunta4sim.place(x=70, y=320)
+    pergunta4sim.place(x=70, y=340)
 
     pergunta4nao = Radiobutton(janela2, text="Não", bg=cor1, font=('Arial 12 bold'), value="Não", variable=pergunta4_var)
-    pergunta4nao.place(x=150, y=320)
+    pergunta4nao.place(x=150, y=340)
 
     def irParaResultado():
         janela2.destroy()
         tela3()
 
-    botao_respostas = Button(janela2, text="Enviar Respostas", command=irParaResultado, font=('Arial 12'), bg=cor4)
-    botao_respostas.place(x=150, y=350)
+    botao_respostas = Button(janela2, text="Enviar Respostas", command=irParaResultado, font=('Arial 12 bold'), bg=cor3, fg=cor4)
+    botao_respostas.place(x=182, y=415)
 
     janela2.mainloop()
 
@@ -147,8 +189,11 @@ def tela3():
     frameMeio = Frame(janela3, width=418, height=200, bg=cor1)
     frameMeio.grid(row=1, column=0)
 
+    tela = Label(frameCima, text="Compatibilidade", width=0, padx=3, anchor=NW, font=('Arial 20 bold'), bg=cor1, fg=cor4)
+    tela.place(x=130, y=30)
+
     resultado = Label(frameCima, text='0%', width=10, padx=10, anchor=CENTER, font=('Arial 20 bold'), bg=cor1, fg=cor4)
-    resultado.place(x=180, y=60)
+    resultado.place(x=150, y=100)
 
     pontuacao = 0
 
@@ -172,6 +217,29 @@ def tela3():
 
     compatibilidade = min(100, max(0, pontuacao + random.randint(0, 20)))
     resultado.config(text=f'{compatibilidade}%')
+
+    if compatibilidade < 40:
+        imagemResultado = Image.open('triste.png')
+        textoResultado = 'se fodeu kkkk' 
+
+    elif compatibilidade > 40 and compatibilidade <= 70:
+        imagemResultado = Image.open('medio.png')
+        textoResultado = 'ta faltando conquistar' 
+
+    elif compatibilidade > 70 and compatibilidade <= 100:
+        imagemResultado = Image.open('feliz.png')
+        textoResultado = 'vao viver de tigrinho e ser feliz'
+
+    imagemResultado = imagemResultado.resize((140, 140))
+    imagemResultado = ImageTk.PhotoImage(imagemResultado)
+
+    imagemLabel = Label(frameMeio, image=imagemResultado, bg=cor1)
+    imagemLabel.place(x=180, y=50)
+
+    imagemLabel.image = imagemResultado
+
+    textoLabel = Label(frameMeio, text=textoResultado, font=('Arial 14 bold'), bg=cor1, fg=cor4)
+    textoLabel.place(x=150, y=20)
 
     janela3.mainloop()
 
