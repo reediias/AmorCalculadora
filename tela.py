@@ -189,22 +189,22 @@ def tela3():
     frameMeio = Frame(janela3, width=418, height=200, bg=cor1)
     frameMeio.grid(row=1, column=0)
 
-    tela = Label(frameCima, text="Compatibilidade", width=0, padx=3, anchor=NW, font=('Arial 20 bold'), bg=cor1, fg=cor4)
-    tela.place(x=130, y=30)
+    tela = Label(frameCima, text="A compatibilidade \n entre vocês é:", width=0, padx=3, anchor=NW, font=('Arial 20 bold'), bg=cor3, fg=cor4)
+    tela.place(x=115, y=30)
 
     resultado = Label(frameCima, text='0%', width=10, padx=10, anchor=CENTER, font=('Arial 20 bold'), bg=cor1, fg=cor4)
-    resultado.place(x=150, y=100)
+    resultado.place(x=150, y=120)
 
     pontuacao = 0
 
     if pergunta1_var.get() == 'Sim':
-        pontuacao += 10
+        pontuacao += 20
     if pergunta2_var.get() == 'Sim':
-        pontuacao += 10
+        pontuacao += 20
     if pergunta3_var.get() == 'Sim':
-        pontuacao += 10
+        pontuacao += 20
     if pergunta4_var.get() == 'Sim':
-        pontuacao += 10
+        pontuacao += 20
 
     if pergunta1_var.get() == 'Não':
         pontuacao -= 5
@@ -220,26 +220,32 @@ def tela3():
 
     if compatibilidade < 40:
         imagemResultado = Image.open('triste.png')
-        textoResultado = 'se fodeu kkkk' 
+        textoResultado1 = 'Acho que vocês não têm muito em comum!' 
 
     elif compatibilidade > 40 and compatibilidade <= 70:
         imagemResultado = Image.open('medio.png')
-        textoResultado = 'ta faltando conquistar' 
+        textoResultado2 = 'Vá em frente!' 
 
     elif compatibilidade > 70 and compatibilidade <= 100:
         imagemResultado = Image.open('feliz.png')
-        textoResultado = 'vao viver de tigrinho e ser feliz'
+        textoResultado3 = 'Vocês são um casal perfeito!'
 
     imagemResultado = imagemResultado.resize((140, 140))
     imagemResultado = ImageTk.PhotoImage(imagemResultado)
 
     imagemLabel = Label(frameMeio, image=imagemResultado, bg=cor1)
-    imagemLabel.place(x=180, y=50)
+    imagemLabel.place(x=180, y=5)
 
     imagemLabel.image = imagemResultado
 
-    textoLabel = Label(frameMeio, text=textoResultado, font=('Arial 14 bold'), bg=cor1, fg=cor4)
-    textoLabel.place(x=150, y=20)
+    textoLabel1 = Label(frameMeio, text=textoResultado1, font=('Arial 12 bold'), bg=cor1, fg=cor4)
+    textoLabel1.place(x=80, y=170)
+
+    textoLabel2 = Label(frameMeio, text=textoResultado2, font=('Arial 12 bold'), bg=cor1, fg=cor4)
+    textoLabel2.place(x=100, y=170)
+
+    textoLabel3 = Label(frameMeio, text=textoResultado3, font=('Arial 12 bold'), bg=cor1, fg=cor4)
+    textoLabel3.place(x=80, y=170)
 
     janela3.mainloop()
 
