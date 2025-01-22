@@ -50,13 +50,12 @@ def tela1():
     if enterNome1 == None and enterNome2 == None:
         return tela1()
 
-    selecionado1 = StringVar()
+    selecionado1 = StringVar(value='Homem') 
+    selecionado2 = StringVar(value='Mulher')
 
     rad1 = Radiobutton(frameMeio, text='Homem', bg=cor1, font=('Arial 12 bold'), value='Homem', variable=selecionado1).place(x=65, y=120)
 
     rad2 = Radiobutton(frameMeio, text='Mulher', bg=cor1, font=('Arial 12 bold'), value='Mulher', variable=selecionado1).place(x=65, y=150)
-
-    selecionado2 = StringVar()
 
     rad3 = Radiobutton(frameMeio, text='Homem', bg=cor1, font=('Arial 12 bold'), value='Homem', variable=selecionado2).place(x=245, y=120)
 
@@ -66,6 +65,9 @@ def tela1():
 
         escolha1 = selecionado1.get()
         escolha2 = selecionado2.get()
+
+        if not escolha1 or not escolha2:
+            return
 
         if escolha1 == 'Homem' and escolha2 == 'Mulher':
             telaImg = Image.open('casal1.png')
@@ -98,7 +100,7 @@ def tela1():
         if not nome1Valor or not nome2Valor:
 
             msg = Label(janela, text="Por favor, preencha os campos!", font=('Arial 12 bold'), bg=cor1, fg=cor4)
-            msg.place(x=105, y= 460)
+            msg.place(x=130, y= 460)
 
             return
 
@@ -126,43 +128,43 @@ def tela2(escolha1, escolha2):
 
     global pergunta1_var, pergunta2_var, pergunta3_var, pergunta4_var
 
+    pergunta1_var = StringVar(value='Sim')
+    pergunta2_var = StringVar(value='Sim')
+    pergunta3_var = StringVar(value='Sim')
+    pergunta4_var = StringVar(value='Sim')
+
+    if not pergunta1_var or not pergunta2_var or not pergunta3_var or not pergunta4_var:
+        return
+
     pergunta1 = Label(janela2, text='Vocês acreditam em amor à primeira vista?', bg=cor1, fg=cor4, font=('Arial 12'))
     pergunta1.place(x=70, y=60)
 
-    pergunta1_var = StringVar()
     pergunta1sim = Radiobutton(janela2, text="Sim", bg=cor1, font=('Arial 12 bold'), value="Sim", variable=pergunta1_var)
     pergunta1sim.place(x=70, y=95)
-
     pergunta1nao = Radiobutton(janela2, text="Não", bg=cor1, font=('Arial 12 bold'), value="Não", variable=pergunta1_var)
     pergunta1nao.place(x=150, y=95)
 
     pergunta2 = Label(janela2, text='Vocês gostam de sair para festas e baladas?', bg=cor1, fg=cor4, font=('Arial 12'))
     pergunta2.place(x=70, y=140)
 
-    pergunta2_var = StringVar()
     pergunta2sim = Radiobutton(janela2, text="Sim", bg=cor1, font=('Arial 12 bold'), value="Sim", variable=pergunta2_var)
     pergunta2sim.place(x=70, y=175)
-
     pergunta2nao = Radiobutton(janela2, text="Não", bg=cor1, font=('Arial 12 bold'), value="Não", variable=pergunta2_var)
     pergunta2nao.place(x=150, y=175)
 
     pergunta3 = Label(janela2, text='Vocês têm hobbies ou interesses em comum?', bg=cor1, fg=cor4, font=('Arial 12'))
     pergunta3.place(x=70, y=220)
 
-    pergunta3_var = StringVar()
     pergunta3sim = Radiobutton(janela2, text="Sim", bg=cor1, font=('Arial 12 bold'), value="Sim", variable=pergunta3_var)
     pergunta3sim.place(x=70, y=255)
-
     pergunta3nao = Radiobutton(janela2, text="Não", bg=cor1, font=('Arial 12 bold'), value="Não", variable=pergunta3_var)
     pergunta3nao.place(x=150, y=255)
 
     pergunta4 = Label(janela2, text='Vocês concordam em muitas decisões importantes?', bg=cor1, fg=cor4, font=('Arial 12'))
     pergunta4.place(x=70, y=300)
 
-    pergunta4_var = StringVar()
     pergunta4sim = Radiobutton(janela2, text="Sim", bg=cor1, font=('Arial 12 bold'), value="Sim", variable=pergunta4_var)
     pergunta4sim.place(x=70, y=340)
-
     pergunta4nao = Radiobutton(janela2, text="Não", bg=cor1, font=('Arial 12 bold'), value="Não", variable=pergunta4_var)
     pergunta4nao.place(x=150, y=340)
 
@@ -189,11 +191,11 @@ def tela3():
     frameMeio = Frame(janela3, width=418, height=200, bg=cor1)
     frameMeio.grid(row=1, column=0)
 
-    tela = Label(frameCima, text="A compatibilidade \n entre vocês é:", width=0, padx=3, anchor=NW, font=('Arial 20 bold'), bg=cor3, fg=cor4)
+    tela = Label(frameCima, text="A compatibilidade\n entre vocês é:", width=0, padx=3, anchor=NW, font=('Arial 20 bold'), bg=cor1, fg=cor4)
     tela.place(x=115, y=30)
 
     resultado = Label(frameCima, text='0%', width=10, padx=10, anchor=CENTER, font=('Arial 20 bold'), bg=cor1, fg=cor4)
-    resultado.place(x=150, y=120)
+    resultado.place(x=150, y=140)
 
     pontuacao = 0
 
@@ -220,15 +222,15 @@ def tela3():
 
     if compatibilidade < 40:
         imagemResultado = Image.open('triste.png')
-        textoResultado1 = 'Acho que vocês não têm muito em comum!' 
+        textoResultado = 'Vocês não têm muito em comum!' 
 
     elif compatibilidade > 40 and compatibilidade <= 70:
         imagemResultado = Image.open('medio.png')
-        textoResultado2 = 'Vá em frente!' 
+        textoResultado = 'Com paciência pode da certo!' 
 
     elif compatibilidade > 70 and compatibilidade <= 100:
         imagemResultado = Image.open('feliz.png')
-        textoResultado3 = 'Vocês são um casal perfeito!'
+        textoResultado = 'Vocês são um casal perfeito!'
 
     imagemResultado = imagemResultado.resize((140, 140))
     imagemResultado = ImageTk.PhotoImage(imagemResultado)
@@ -238,14 +240,8 @@ def tela3():
 
     imagemLabel.image = imagemResultado
 
-    textoLabel1 = Label(frameMeio, text=textoResultado1, font=('Arial 12 bold'), bg=cor1, fg=cor4)
-    textoLabel1.place(x=80, y=170)
-
-    textoLabel2 = Label(frameMeio, text=textoResultado2, font=('Arial 12 bold'), bg=cor1, fg=cor4)
-    textoLabel2.place(x=100, y=170)
-
-    textoLabel3 = Label(frameMeio, text=textoResultado3, font=('Arial 12 bold'), bg=cor1, fg=cor4)
-    textoLabel3.place(x=80, y=170)
+    textoLabel = Label(frameMeio, text=textoResultado, font=('Arial 12 bold'), bg=cor1, fg=cor4)
+    textoLabel.place(x=135, y=170)
 
     janela3.mainloop()
 
